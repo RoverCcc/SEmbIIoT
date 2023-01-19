@@ -1,0 +1,47 @@
+node rising (x:bool) returns (y:bool);
+let
+y = x -> x and not(pre x);
+tel;
+
+node counter (const N:int ; RAZ:bool) returns (Top:bool);
+var count:int;
+let
+    count = if RAZ then 0
+            else 1-> pre(count) +1;
+    Top = (count = N);
+tel;
+
+node RS_switch1 (reset, set, init: bool) returns (level: bool);
+let
+    level = init -> if set then true
+                    else if reset then false
+                    else pre(level),
+tel;
+
+//node RS_switch2 (reset, set, init: bool) returns (level: bool);
+let
+level = int -> set and not(pre(level))
+                or not (reset) and pre (level);
+tel;
+let
+level = init -> if (set and reset) then not (pre(level))
+                else RS_switch1 (reset,set,init);
+tel;
+
+//node one_button_switch (button: bool) returns (level: bool);
+
+//node STABLE (set: bool; delay: int) returns (level: bool);
+
+//node delay (const d: int ; X: bool) returns (Y: bool);
+var A: bool^ (d+1);
+let
+    A[0] = X
+    A[1...a] = false^(a) -> pre(A[0...d-1])
+    y = A a[];
+tel;
+
+//node simu_delay (X: bool) returns (Y: bool);
+
+//node metronome (R1, R2, R3, R4: bool) returns (tic, tac, toc, tuc: bool);
+
+//node fibonacci (init: int) returns (f: int);
